@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Vendly — máquina de vendas autônoma que roda na própria Point Smart.">
+<meta name="color-scheme" content="dark">
+<title>Vendly — máquina de vendas autônoma</title>
+<style>
+  :root {
+    --bg: #0f1115;
+    --surface: #171b22;
+    --border: #262c36;
+    --text: #eaeef2;
+    --muted: #9aa4b2;
+    --accent: #00a650;
+    --accent-dim: #007a3b;
+    --max: 860px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover, a:focus { text-decoration: underline; }
+
+  .wrap {
+    max-width: var(--max);
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  header.site {
+    border-bottom: 1px solid var(--border);
+    background: rgba(15, 17, 21, 0.85);
+    position: sticky;
+    top: 0;
+    backdrop-filter: blur(6px);
+  }
+
+  header.site .wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding-top: 14px;
+    padding-bottom: 14px;
+  }
+
+  .brand {
+    font-weight: 700;
+    font-size: 1.15rem;
+    letter-spacing: 0.02em;
+  }
+  .brand .dot { color: var(--accent); }
+
+  nav.top a {
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+  nav.top a:hover { color: var(--text); }
+
+  .hero {
+    padding: 64px 0 44px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .hero h1 {
+    margin: 0 0 12px;
+    font-size: clamp(2rem, 6vw, 3rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+
+  .hero p.tagline {
+    margin: 0 0 28px;
+    color: var(--muted);
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    max-width: 620px;
+  }
+
+  .cta {
+    display: inline-block;
+    background: var(--accent);
+    color: #06210f;
+    font-weight: 600;
+    padding: 12px 22px;
+    border-radius: 8px;
+    transition: background 0.15s ease;
+  }
+  .cta:hover {
+    background: var(--accent-dim);
+    color: #fff;
+    text-decoration: none;
+  }
+
+  section { padding: 56px 0; border-bottom: 1px solid var(--border); }
+  section:last-of-type { border-bottom: none; }
+
+  h2 {
+    margin: 0 0 8px;
+    font-size: clamp(1.4rem, 4vw, 1.9rem);
+    letter-spacing: -0.01em;
+  }
+  h2 + p.lead { margin: 0 0 32px; color: var(--muted); }
+
+  ol.steps {
+    list-style: none;
+    counter-reset: step;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 16px;
+  }
+
+  ol.steps li {
+    counter-increment: step;
+    position: relative;
+    padding: 20px 20px 20px 68px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+  }
+
+  ol.steps li::before {
+    content: counter(step);
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #06210f;
+    font-weight: 700;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  ol.steps li strong { color: var(--text); }
+  ol.steps li span { color: var(--muted); display: block; font-size: 0.95rem; }
+
+  ul.features {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+  }
+
+  ul.features li {
+    padding: 20px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+  }
+
+  ul.features li h3 {
+    margin: 0 0 6px;
+    font-size: 1.05rem;
+    color: var(--text);
+  }
+  ul.features li p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+
+  .feat-icon {
+    display: inline-flex;
+    width: 30px;
+    height: 30px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    background: rgba(0, 166, 80, 0.15);
+    color: var(--accent);
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+  }
+
+  footer.site {
+    padding: 40px 0;
+    color: var(--muted);
+    font-size: 0.9rem;
+    text-align: center;
+  }
+  footer.site a { color: var(--muted); }
+  footer.site a:hover { color: var(--text); }
+  footer.site .sep { padding: 0 8px; color: var(--border); }
+
+  @media (max-width: 520px) {
+    .hero { padding: 44px 0 32px; }
+    section { padding: 40px 0; }
+    header.site .wrap { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap">
+    <div class="brand">Vendly<span class="dot">.</span></div>
+    <nav class="top" aria-label="Navegação">
+      <a href="#como-funciona">Como funciona</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <section class="hero" aria-labelledby="titulo">
+    <div class="wrap">
+      <h1 id="titulo">Vendly</h1>
+      <p class="tagline">máquina de vendas autônoma que roda na própria Point Smart</p>
+      <a class="cta" href="#como-funciona">Como funciona</a>
+    </div>
+  </section>
+
+  <section id="como-funciona" aria-labelledby="titulo-como">
+    <div class="wrap">
+      <h2 id="titulo-como">Como funciona</h2>
+      <p class="lead">Da escolha do produto à liberação no slot, sem intermediários.</p>
+      <ol class="steps">
+        <li>
+          <strong>O comprador escolhe o item</strong>
+          <span>O catálogo completo é exibido no terminal do ponto de venda.</span>
+        </li>
+        <li>
+          <strong>O pagamento acontece na Point</strong>
+          <span>Cartão, Pix ou QR Code — processado pelo próprio terminal.</span>
+        </li>
+        <li>
+          <strong>Pagamento aprovado</strong>
+          <span>O aplicativo envia a posição do produto ao ESP32.</span>
+        </li>
+        <li>
+          <strong>O ESP32 aciona o relé</strong>
+          <span>A matriz de relés libera o produto no slot correspondente.</span>
+        </li>
+        <li>
+          <strong>A venda vira telemetria</strong>
+          <span>A transação é registrada no backend para estoque e relatórios.</span>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="recursos" aria-labelledby="titulo-recursos">
+    <div class="wrap">
+      <h2 id="titulo-recursos">Recursos</h2>
+      <p class="lead">Operação completa de uma frota de máquinas em um só lugar.</p>
+      <ul class="features">
+        <li>
+          <span class="feat-icon" aria-hidden="true">01</span>
+          <h3>Catálogo remoto com fotos</h3>
+          <p>Produtos, preços e imagens atualizados sem tocar no terminal.</p>
+        </li>
+        <li>
+          <span class="feat-icon" aria-hidden="true">02</span>
+          <h3>Estoque por máquina e slot</h3>
+          <p>Quantidade controlada por posição física em cada máquina.</p>
+        </li>
+        <li>
+          <span class="feat-icon" aria-hidden="true">03</span>
+          <h3>Pontos de venda com localização</h3>
+          <p>Cadastro das máquinas com endereço para gestão da rede.</p>
+        </li>
+        <li>
+          <span class="feat-icon" aria-hidden="true">04</span>
+          <h3>Rotas de abastecimento</h3>
+          <p>Organize o reabastecimento por região e prioridade.</p>
+        </li>
+        <li>
+          <span class="feat-icon" aria-hidden="true">05</span>
+          <h3>Comprovante não fiscal</h3>
+          <p>Recibo impresso ou digital direto da venda no terminal.</p>
+        </li>
+        <li>
+          <span class="feat-icon" aria-hidden="true">06</span>
+          <h3>Provisionamento por terminal</h3>
+          <p>Configuração de cada dispositivo de forma centralizada.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <a href="mailto:contato@example.com">contato@example.com</a>
+    <span class="sep">·</span>
+    © 2026 Vendly
+  </div>
+</footer>
+
+</body>
+</html>
